@@ -72,7 +72,7 @@ void main(void) {
     unsigned char minutes, seconds;
 
 
-    // init
+    // initialize registers 
 
     ANSELA = 0b00010000;                            // ans4 = RA4 = analog channel 3 = potentiometer
     TRISA =  0b11011101;                            // only ra1 and ra5 are used as outputs
@@ -109,10 +109,11 @@ void main(void) {
               GO = 1;                               //conversion is in progress
               while (GO)                            //wait for conversion to be finished
               {
-
+                
               }
 
-               temp = (ADRES)*0.881 - 391.28;       // transfer function (calibrated sensor)
+               temp = (ADRES)*0.881 - 391.28;       // transfer function(calibrated sensor)
+                                                    // [ADRES contains analog reading of temperature from ADC]
 
 
             // Set mode, to configure hours, minutes, seconds, alarm hours, alarm minutes, alarm seconds, and confirm the adjusted time
@@ -487,10 +488,9 @@ void main(void) {
     }
 }
 // interruption service routine for counting Timer0 overflows (reliable time base)
-
 void interrupt myISR(void) {
-    TMR0=(256-250+2+19);       // roll over after 250 usec
-    INTCONbits.T0IF = 0;       // clear TIMER0 interruption flag
+    TMR0 = (256-250+2+19);       // roll over after 250 usec
+    INTCONbits.T0IF = 0;         // clear TIMER0 interruption flag
     
     // if 4 * 250 us (1 ms) has passed, increment number of milisseconds and restart counting
     if(++intcount == 4) {
