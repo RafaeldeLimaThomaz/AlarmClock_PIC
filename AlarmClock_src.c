@@ -32,7 +32,7 @@
 #define OFF  0
 #define ON  1
 
-// prototypes of the functions defined in header file (pk3_LCD.c)
+// prototypes of the functions defined in header file (AlarmClock_LCD.h)
 
 void initLCD(void);
 void clearLCD(void);
